@@ -1,0 +1,671 @@
+<title>ממלכת הפטריות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:      #171512;
+    --ground-soft: #211E19;
+    --mycelium:    #F2EDE3;
+    --tan:         #A79E8E;
+    --ochre:       #C8973F;
+    --hair:        rgba(242, 237, 227, 0.14);
+    --hair-strong: rgba(242, 237, 227, 0.28);
+
+    --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+    --f-body:    "Assistant", "Segoe UI", Arial, sans-serif;
+    --f-label:   "IBM Plex Mono", "Consolas", monospace;
+
+    --measure: 60ch;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--mycelium);
+  }
+
+  .page {
+    background: var(--ground);
+    color: var(--mycelium);
+    font-family: var(--f-body);
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    width: min(1080px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  /* ---------- language ---------- */
+
+  .page[data-lang="he"] .when-en { display: none; }
+  .page[data-lang="en"] .when-he { display: none; }
+
+  /* Type treatment is declared per span, because the two languages swap
+     roles between the heading line and the label line. */
+  .t-heb  { font-family: var(--f-display); direction: rtl; letter-spacing: 0; }
+  .t-mono { font-family: var(--f-label); direction: ltr; letter-spacing: 0.3em; text-indent: 0.3em; }
+
+  .langswitch {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 20;
+    display: flex;
+    gap: 1px;
+    background: var(--hair-strong);
+    border-radius: 999px;
+    padding: 1px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  .langswitch button {
+    font-family: var(--f-label);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    padding: 0.42rem 0.8rem;
+    border: 0;
+    background: var(--ground);
+    color: var(--tan);
+    cursor: pointer;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .langswitch button[aria-pressed="true"] {
+    background: var(--ochre);
+    color: #171512;
+  }
+
+  .langswitch button:focus-visible { outline: 2px solid var(--mycelium); outline-offset: 2px; }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: clamp(3.6rem, 9vw, 5.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hair-strong) 22%, var(--hair-strong) 78%, transparent);
+  }
+
+  .seal {
+    width: clamp(112px, 26vw, 156px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.55));
+  }
+
+  .brand {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(2.35rem, 8.5vw, 4.15rem);
+    line-height: 1.06;
+    letter-spacing: -0.005em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .brand-latin {
+    font-family: var(--f-label);
+    font-size: clamp(0.68rem, 2.3vw, 0.8rem);
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    color: var(--ochre);
+    margin: -0.4rem 0 0;
+    direction: ltr;
+  }
+
+  .brand-latin .t-heb {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    text-indent: 0;
+  }
+
+  .tagline {
+    font-size: clamp(1rem, 3.4vw, 1.2rem);
+    color: var(--tan);
+    max-width: min(46ch, 100%);
+    margin: 0.35rem 0 0;
+    text-wrap: balance;
+  }
+
+  .year {
+    color: var(--tan);
+    margin: 0.5rem 0 0;
+  }
+
+  .year .t-mono { font-size: 0.7rem; letter-spacing: 0.34em; }
+  .year .t-heb  { font-size: 1rem; letter-spacing: 0.06em; }
+
+  /* ---------- specimen plates ---------- */
+
+  .plates {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.6rem, 4vw, 3.25rem);
+    padding: clamp(3rem, 7vw, 4.75rem) 0;
+    border-bottom: 1px solid var(--hair);
+    text-align: center;
+  }
+
+  .plate:last-child { border-bottom: 0; }
+
+  .lens {
+    position: relative;
+    flex: none;
+    width: clamp(210px, 58vw, 330px);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+
+  .lens::before {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, var(--halo) 0%, transparent 68%);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .lens::after {
+    content: "";
+    position: absolute;
+    inset: -13px;
+    border-radius: 50%;
+    border: 1px solid var(--hair-strong);
+    pointer-events: none;
+  }
+
+  .lens img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.5);
+  }
+
+  .spec { max-width: min(var(--measure), 100%); }
+
+  .spec-name {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: clamp(1.7rem, 5.6vw, 2.3rem);
+    line-height: 1.2;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .spec-alt {
+    font-weight: 500;
+    font-size: 0.74rem;
+    color: var(--ochre);
+    margin: 0.7rem 0 0;
+  }
+
+  .spec-alt .t-heb { font-size: 1.15rem; font-weight: 400; }
+
+  .spec-sci {
+    font-family: var(--f-label);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--tan);
+    opacity: 0.75;
+    font-style: italic;
+    margin: 0.3rem 0 0;
+    direction: ltr;
+  }
+
+  .spec-rule {
+    width: 42px;
+    height: 1px;
+    background: var(--hair-strong);
+    border: 0;
+    margin: 1.35rem auto;
+  }
+
+  .spec-text {
+    margin: 0;
+    color: var(--tan);
+  }
+
+  /* ---------- placeholders ---------- */
+
+  .details {
+    padding: clamp(3rem, 7vw, 4.5rem) 0;
+    border-top: 1px solid var(--hair-strong);
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+
+  .todo {
+    border: 1px dashed var(--hair-strong);
+    border-radius: 2px;
+    padding: 1.35rem 1.5rem;
+    background: var(--ground-soft);
+  }
+
+  .todo-tag {
+    font-family: var(--f-label);
+    font-size: 0.64rem;
+    letter-spacing: 0.26em;
+    text-indent: 0.26em;
+    color: var(--ochre);
+    display: block;
+    margin-bottom: 0.5rem;
+    direction: ltr;
+  }
+
+  .todo-title {
+    font-family: var(--f-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0.3rem;
+  }
+
+  .todo p {
+    margin: 0;
+    color: var(--tan);
+    font-size: 0.97rem;
+  }
+
+  /* ---------- contact ---------- */
+
+  .contact {
+    padding: clamp(3rem, 8vw, 5rem) 0 clamp(3.5rem, 9vw, 6rem);
+    border-top: 1px solid var(--hair-strong);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .contact-eyebrow {
+    color: var(--ochre);
+    margin: 0;
+  }
+
+  .contact-eyebrow .t-mono { font-size: 0.66rem; letter-spacing: 0.32em; }
+  .contact-eyebrow .t-heb  { font-size: 1.15rem; letter-spacing: 0.04em; }
+
+  .contact-name {
+    font-family: var(--f-display);
+    font-size: clamp(1.5rem, 5vw, 1.95rem);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    text-decoration: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--hair-strong);
+    color: var(--mycelium);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  .btn-primary {
+    background: var(--ochre);
+    border-color: var(--ochre);
+    color: #171512;
+  }
+
+  .btn:hover, .btn:focus-visible { background: var(--mycelium); border-color: var(--mycelium); color: #171512; }
+
+  .btn:focus-visible, .ig:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; }
+
+  .ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--f-label);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    color: var(--tan);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 3px;
+    direction: ltr;
+  }
+
+  .ig svg { width: 17px; height: 17px; flex: none; }
+
+  .ig:hover { color: var(--mycelium); border-color: var(--hair-strong); }
+
+  .colophon {
+    font-family: var(--f-label);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--tan);
+    opacity: 0.5;
+    margin: 1.5rem 0 0;
+    direction: ltr;
+  }
+
+  /* ---------- wider screens ---------- */
+
+  @media (min-width: 820px) {
+    .plate {
+      flex-direction: row;
+      text-align: start;
+      align-items: center;
+    }
+    .plate:nth-child(even) { flex-direction: row-reverse; }
+    .spec-rule { margin-inline: 0; }
+    .details { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="page" id="page" data-lang="he" dir="rtl" lang="he">
+
+  <div class="langswitch" role="group" aria-label="Language / שפה">
+    <button type="button" id="btn-he" aria-pressed="true">HEB</button>
+    <button type="button" id="btn-en" aria-pressed="false">EN</button>
+  </div>
+
+  <header class="hero wrap">
+    <img class="seal" src="images/logo-cream.png" alt="ממלכת הפטריות / Mushrooms Kingdom">
+    <h1 class="brand">
+      <span class="when-he">ממלכת הפטריות</span>
+      <span class="when-en">Mushrooms Kingdom</span>
+    </h1>
+    <p class="brand-latin">
+      <span class="when-he">MUSHROOMS KINGDOM</span>
+      <span class="when-en t-heb">ממלכת הפטריות</span>
+    </p>
+    <p class="tagline">
+      <span class="when-he">[שורת פתיחה - משפט אחד על החווה ועל מה שמגדלים כאן]</span>
+      <span class="when-en">[Opening line - one sentence about the farm and what is grown here]</span>
+    </p>
+    <p class="year">
+      <span class="when-he t-heb">קטלוג 2026</span>
+      <span class="when-en t-mono">CATALOGUE 2026</span>
+    </p>
+  </header>
+
+  <main class="plates wrap">
+
+    <article class="plate">
+      <div class="lens" style="--halo: #EBDFC4">
+        <img src="images/lions_mane.jpg" alt="פטריית רעמת האריה / Lion&rsquo;s Mane">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית רעמת האריה</span>
+          <span class="when-en">Lion&rsquo;s Mane</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">LION&rsquo;S MANE</span>
+          <span class="when-en t-heb">פטריית רעמת האריה</span>
+        </p>
+        <p class="spec-sci">Hericium erinaceus</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">״הסטייק של הטבע״ - בעלת מרקם בשרני עשיר. נחשבת כ״מזון על״ התומך בבריאות המוח ושיפור קשב וריכוז.</span>
+          <span class="when-en">&ldquo;Nature&rsquo;s steak&rdquo; - a rich, meaty texture. Regarded as a superfood that supports brain health and improves focus and concentration.</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="lens" style="--halo: #DE7C6B">
+        <img src="images/pink_oyster.jpg" alt="פטריית צדף ורודה / Pink Oyster">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית צדף ורודה</span>
+          <span class="when-en">Pink Oyster</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">PINK OYSTER</span>
+          <span class="when-en t-heb">פטריית צדף ורודה</span>
+        </p>
+        <p class="spec-sci">Pleurotus djamor</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">פטריה מרהיבה ביופיה בעלת צבע עז, עשירה בברזל, חומצות אמינו ונוגדי חמצון. משתלבת נהדר במאפים, פסטות ומוקפצים.</span>
+          <span class="when-en">A strikingly beautiful mushroom in a vivid colour, rich in iron, amino acids and antioxidants. Works beautifully in baked dishes, pasta and stir-fries.</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="lens" style="--halo: #7C8CA8">
+        <img src="images/blue_oyster.jpg" alt="פטריית צדף כחולה / Blue Oyster">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית צדף כחולה</span>
+          <span class="when-en">Blue Oyster</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">BLUE OYSTER</span>
+          <span class="when-en t-heb">פטריית צדף כחולה</span>
+        </p>
+        <p class="spec-sci">Pleurotus ostreatus var. columbinus</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">פטרייה עסיסית בעלת טעם אדמתי עדין המשתלבת נהדר בצלייה והקפצה. מקור טבעי לחלבון וסיבים תזונתיים, מכילה שפע של נוגדי חמצון התומכים בחיזוק המערכת החיסונית והפחתת דלקות.</span>
+          <span class="when-en">A succulent mushroom with a delicate earthy flavour that works beautifully roasted or seared. A natural source of protein and dietary fibre, packed with antioxidants that support the immune system and help reduce inflammation.</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="lens" style="--halo: #D9B02E">
+        <img src="images/yellow_oyster.jpg" alt="פטריית צדף צהובה / Golden Oyster">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית צדף צהובה</span>
+          <span class="when-en">Golden Oyster</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">GOLDEN OYSTER</span>
+          <span class="when-en t-heb">פטריית צדף צהובה</span>
+        </p>
+        <p class="spec-sci">Pleurotus citrinopileatus</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">פטריה אקזוטית בעלת ארומה אגוזית עדינה, עשירה בויטמינים מקבוצת B ומהווה מקור מצוין לסיבים תזונתיים ולחלבון. מושלמת לשילוב במוקפצים ומנות מהירות.</span>
+          <span class="when-en">An exotic mushroom with a delicate nutty aroma, rich in B vitamins and an excellent source of dietary fibre and protein. Perfect for stir-fries and quick dishes.</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="lens" style="--halo: #CFCFC6">
+        <img src="images/white_oyster.jpg" alt="פטריית צדף לבנה / White Oyster">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית צדף לבנה</span>
+          <span class="when-en">White Oyster</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">WHITE OYSTER</span>
+          <span class="when-en t-heb">פטריית צדף לבנה</span>
+        </p>
+        <p class="spec-sci">Pleurotus ostreatus</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">פטרייה עדינה ואלגנטית בעלת טעם מתקתק, הסופגת בקלות טעמים ומשתלבת נהדר במרקים, רטבים ותבשילים. דלה בקלוריות ועשירה בסיבים פרה-ביוטיים התורמים לבריאות מערכת העיכול.</span>
+          <span class="when-en">A delicate, elegant mushroom with a slightly sweet flavour that readily absorbs other flavours and works beautifully in soups, sauces and stews. Low in calories and rich in prebiotic fibre that supports digestive health.</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="plate">
+      <div class="lens" style="--halo: #6E6055">
+        <img src="images/black_pearl.jpg" alt="פטריית פנינה שחורה / Black Pearl Oyster">
+      </div>
+      <div class="spec">
+        <h2 class="spec-name">
+          <span class="when-he">פטריית פנינה שחורה</span>
+          <span class="when-en">Black Pearl Oyster</span>
+        </h2>
+        <p class="spec-alt">
+          <span class="when-he t-mono">BLACK PEARL OYSTER</span>
+          <span class="when-en t-heb">פטריית פנינה שחורה</span>
+        </p>
+        <p class="spec-sci">Pleurotus ostreatus &times; eryngii</p>
+        <hr class="spec-rule">
+        <p class="spec-text">
+          <span class="when-he">פטריה בשרנית בעלת ארומה אדמתית עמוקה ועשירה. עשירה בחלבון וסיבים תזונתיים.</span>
+          <span class="when-en">A meaty mushroom with a deep, rich earthy aroma. High in protein and dietary fibre.</span>
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <section class="details wrap">
+    <div class="todo">
+      <span class="todo-tag">TO FILL</span>
+      <h3 class="todo-title">
+        <span class="when-he">אזור חלוקה</span>
+        <span class="when-en">Delivery area</span>
+      </h3>
+      <p>
+        <span class="when-he">[לאילו אזורים מחלקים, ובאילו ימים]</span>
+        <span class="when-en">[Which areas are delivered to, and on which days]</span>
+      </p>
+    </div>
+    <div class="todo">
+      <span class="todo-tag">TO FILL</span>
+      <h3 class="todo-title">
+        <span class="when-he">הזמנה מינימלית</span>
+        <span class="when-en">Minimum order</span>
+      </h3>
+      <p>
+        <span class="when-he">[כמות או סכום מינימלי להזמנה]</span>
+        <span class="when-en">[Minimum quantity or order value]</span>
+      </p>
+    </div>
+    <div class="todo">
+      <span class="todo-tag">TO FILL</span>
+      <h3 class="todo-title">
+        <span class="when-he">על החווה</span>
+        <span class="when-en">About the farm</span>
+      </h3>
+      <p>
+        <span class="when-he">[שתיים־שלוש שורות על שיטת הגידול והטריות]</span>
+        <span class="when-en">[Two or three lines on the growing method and freshness]</span>
+      </p>
+    </div>
+  </section>
+
+  <footer class="contact wrap">
+    <p class="contact-eyebrow">
+      <span class="when-he t-heb">לפרטים נוספים ולהזמנות</span>
+      <span class="when-en t-mono">ENQUIRIES AND ORDERS</span>
+    </p>
+    <p class="contact-name">
+      <span class="when-he">מיכאל תורג׳מן</span>
+      <span class="when-en">Michael Turjeman</span>
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="tel:+972527050501">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.2 3.5h3l1.5 3.8-1.9 1.4a12.5 12.5 0 0 0 5.5 5.5l1.4-1.9 3.8 1.5v3a1.7 1.7 0 0 1-1.9 1.7A16.8 16.8 0 0 1 4.5 5.4 1.7 1.7 0 0 1 6.2 3.5Z"></path>
+        </svg>
+        <span class="when-he">התקשרו · 052-705-0501</span>
+        <span class="when-en">Call · 052-705-0501</span>
+      </a>
+      <a class="btn" href="https://wa.me/972527050501" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12.04 2.5a9.4 9.4 0 0 0-8.06 14.2L2.5 21.5l4.94-1.4A9.4 9.4 0 1 0 12.04 2.5Zm0 1.72a7.68 7.68 0 1 1-3.9 14.3l-.29-.17-2.92.83.84-2.85-.19-.3A7.68 7.68 0 0 1 12.04 4.22Zm-3.5 3.6c-.17 0-.45.06-.68.31-.24.25-.9.86-.9 2.11 0 1.25.92 2.45 1.05 2.62.13.17 1.78 2.79 4.4 3.8 2.18.84 2.62.68 3.1.63.47-.04 1.52-.6 1.74-1.2.21-.6.21-1.1.15-1.21-.06-.1-.24-.17-.5-.3-.26-.13-1.52-.75-1.76-.83-.23-.09-.4-.13-.57.12-.17.26-.65.83-.8 1-.15.17-.29.19-.55.06-.26-.13-1.09-.4-2.07-1.28-.77-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.12.26-.3.4-.46.12-.15.16-.26.25-.43.08-.17.04-.32-.02-.45-.07-.13-.57-1.4-.79-1.91-.2-.5-.4-.43-.56-.44h-.47Z"></path>
+        </svg>
+        <span class="when-he">וואטסאפ</span>
+        <span class="when-en">WhatsApp</span>
+      </a>
+    </div>
+    <a class="ig" href="https://instagram.com/mushrooms.kingdomm" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.4"></rect>
+        <circle cx="12" cy="12" r="4.3"></circle>
+        <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"></circle>
+      </svg>
+      <span>@mushrooms.kingdomm</span>
+    </a>
+    <p class="colophon">MUSHROOMS KINGDOM &middot; 2026</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var page = document.getElementById("page");
+    var buttons = { he: document.getElementById("btn-he"), en: document.getElementById("btn-en") };
+
+    function apply(lang) {
+      var rtl = lang === "he";
+      page.setAttribute("data-lang", lang);
+      page.setAttribute("lang", lang);
+      page.setAttribute("dir", rtl ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", lang);
+      document.documentElement.setAttribute("dir", rtl ? "rtl" : "ltr");
+      buttons.he.setAttribute("aria-pressed", String(rtl));
+      buttons.en.setAttribute("aria-pressed", String(!rtl));
+      try { localStorage.setItem("mk-lang", lang); } catch (e) {}
+    }
+
+    buttons.he.addEventListener("click", function () { apply("he"); });
+    buttons.en.addEventListener("click", function () { apply("en"); });
+
+    var saved = null;
+    try { saved = localStorage.getItem("mk-lang"); } catch (e) {}
+    apply(saved === "en" ? "en" : "he");
+  })();
+</script>

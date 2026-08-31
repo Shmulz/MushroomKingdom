@@ -1,0 +1,293 @@
+<title>כרטיס ביקור - ממלכת הפטריות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:      #171512;
+    --ground-soft: #211E19;
+    --mycelium:    #F2EDE3;
+    --tan:         #A79E8E;
+    --ochre:       #C8973F;
+    --hair:        rgba(242, 237, 227, 0.14);
+    --hair-strong: rgba(242, 237, 227, 0.28);
+
+    --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+    --f-body:    "Assistant", "Segoe UI", Arial, sans-serif;
+    --f-label:   "IBM Plex Mono", "Consolas", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--mycelium);
+  }
+
+  .page {
+    background: var(--ground);
+    color: var(--mycelium);
+    font-family: var(--f-body);
+    font-weight: 300;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1.5rem, 5vw, 3.5rem) 1.25rem;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .page[data-lang="he"] .when-en { display: none; }
+  .page[data-lang="en"] .when-he { display: none; }
+
+  .t-heb  { font-family: var(--f-display); direction: rtl; letter-spacing: 0; }
+  .t-mono { font-family: var(--f-label); direction: ltr; letter-spacing: 0.26em; text-indent: 0.26em; }
+
+  .langswitch {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 20;
+    display: flex;
+    gap: 1px;
+    background: var(--hair-strong);
+    border-radius: 999px;
+    padding: 1px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  .langswitch button {
+    font-family: var(--f-label);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    padding: 0.38rem 0.74rem;
+    border: 0;
+    background: var(--ground);
+    color: var(--tan);
+    cursor: pointer;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .langswitch button[aria-pressed="true"] { background: var(--ochre); color: #171512; }
+  .langswitch button:focus-visible { outline: 2px solid var(--mycelium); outline-offset: 2px; }
+
+  .card {
+    width: min(430px, 100%);
+    background: var(--ground-soft);
+    border: 1px solid var(--hair-strong);
+    border-radius: 4px;
+    padding: clamp(1.9rem, 6vw, 2.6rem) clamp(1.4rem, 5vw, 2.2rem) clamp(1.7rem, 5vw, 2.2rem);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
+  }
+
+  .seal { width: clamp(92px, 24vw, 116px); height: auto; display: block; }
+
+  .brand {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 6.5vw, 2.2rem);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .brand-latin {
+    font-family: var(--f-label);
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
+    color: var(--ochre);
+    margin: -0.3rem 0 0;
+    direction: ltr;
+  }
+
+  .brand-latin .t-heb {
+    font-family: var(--f-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-indent: 0;
+  }
+
+  .rule { width: 100%; height: 1px; background: var(--hair); border: 0; margin: 0.4rem 0; }
+
+  .role { color: var(--ochre); margin: 0; }
+  .role .t-mono { font-size: 0.62rem; }
+  .role .t-heb  { font-size: 1.05rem; letter-spacing: 0.04em; }
+
+  .name {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 5.5vw, 1.75rem);
+    font-weight: 500;
+    margin: -0.35rem 0 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    border: 1px solid var(--hair-strong);
+    color: var(--mycelium);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  .btn-primary { background: var(--ochre); border-color: var(--ochre); color: #171512; }
+
+  .btn:hover, .btn:focus-visible { background: var(--mycelium); border-color: var(--mycelium); color: #171512; }
+  .btn:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; }
+
+  .qr-block {
+    margin-top: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+  }
+
+  .qr-panel {
+    background: var(--mycelium);
+    border-radius: 3px;
+    padding: 0.85rem;
+    line-height: 0;
+  }
+
+  .qr-panel svg { width: clamp(132px, 38vw, 158px); height: auto; display: block; }
+
+  .qr-caption { color: var(--tan); margin: 0; }
+  .qr-caption .t-mono { font-size: 0.6rem; }
+  .qr-caption .t-heb  { font-size: 0.98rem; letter-spacing: 0.03em; }
+
+  .colophon {
+    font-family: var(--f-label);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--tan);
+    opacity: 0.5;
+    margin: 0.4rem 0 0;
+    direction: ltr;
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="page" id="page" data-lang="he" dir="rtl" lang="he">
+
+  <div class="langswitch" role="group" aria-label="Language / שפה">
+    <button type="button" id="btn-he" aria-pressed="true">HEB</button>
+    <button type="button" id="btn-en" aria-pressed="false">EN</button>
+  </div>
+
+  <div class="card">
+    <img class="seal" src="images/logo-cream.png" alt="ממלכת הפטריות / Mushrooms Kingdom">
+
+    <h1 class="brand">
+      <span class="when-he">ממלכת הפטריות</span>
+      <span class="when-en">Mushrooms Kingdom</span>
+    </h1>
+    <p class="brand-latin">
+      <span class="when-he">MUSHROOMS KINGDOM</span>
+      <span class="when-en t-heb">ממלכת הפטריות</span>
+    </p>
+
+    <hr class="rule">
+
+    <p class="role">
+      <span class="when-he t-heb">לפרטים נוספים ולהזמנות</span>
+      <span class="when-en t-mono">ENQUIRIES AND ORDERS</span>
+    </p>
+    <p class="name">
+      <span class="when-he">מיכאל תורג׳מן</span>
+      <span class="when-en">Michael Turjeman</span>
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="tel:+972527050501">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.2 3.5h3l1.5 3.8-1.9 1.4a12.5 12.5 0 0 0 5.5 5.5l1.4-1.9 3.8 1.5v3a1.7 1.7 0 0 1-1.9 1.7A16.8 16.8 0 0 1 4.5 5.4 1.7 1.7 0 0 1 6.2 3.5Z"></path>
+        </svg>
+        <span dir="ltr">052-705-0501</span>
+      </a>
+      <a class="btn" href="https://wa.me/972527050501" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12.04 2.5a9.4 9.4 0 0 0-8.06 14.2L2.5 21.5l4.94-1.4A9.4 9.4 0 1 0 12.04 2.5Zm0 1.72a7.68 7.68 0 1 1-3.9 14.3l-.29-.17-2.92.83.84-2.85-.19-.3A7.68 7.68 0 0 1 12.04 4.22Zm-3.5 3.6c-.17 0-.45.06-.68.31-.24.25-.9.86-.9 2.11 0 1.25.92 2.45 1.05 2.62.13.17 1.78 2.79 4.4 3.8 2.18.84 2.62.68 3.1.63.47-.04 1.52-.6 1.74-1.2.21-.6.21-1.1.15-1.21-.06-.1-.24-.17-.5-.3-.26-.13-1.52-.75-1.76-.83-.23-.09-.4-.13-.57.12-.17.26-.65.83-.8 1-.15.17-.29.19-.55.06-.26-.13-1.09-.4-2.07-1.28-.77-.68-1.28-1.52-1.43-1.78-.15-.26-.02-.4.11-.53.12-.12.26-.3.4-.46.12-.15.16-.26.25-.43.08-.17.04-.32-.02-.45-.07-.13-.57-1.4-.79-1.91-.2-.5-.4-.43-.56-.44h-.47Z"></path>
+        </svg>
+        <span class="when-he">וואטסאפ</span>
+        <span class="when-en">WhatsApp</span>
+      </a>
+      <a class="btn" href="https://instagram.com/mushrooms.kingdomm" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5.4"></rect>
+          <circle cx="12" cy="12" r="4.3"></circle>
+          <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <span dir="ltr">@mushrooms.kingdomm</span>
+      </a>
+      <a class="btn" href="https://shmulz.github.io/MashroomKingdom/">
+        <span class="when-he">לקטלוג המלא</span>
+        <span class="when-en">View the full catalogue</span>
+      </a>
+    </div>
+
+    <div class="qr-block">
+      <div class="qr-panel">{{QR}}</div>
+      <p class="qr-caption">
+        <span class="when-he t-heb">סרקו לצפייה בקטלוג</span>
+        <span class="when-en t-mono">SCAN FOR THE CATALOGUE</span>
+      </p>
+    </div>
+
+    <p class="colophon">MUSHROOMS KINGDOM &middot; 2026</p>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var page = document.getElementById("page");
+    var buttons = { he: document.getElementById("btn-he"), en: document.getElementById("btn-en") };
+
+    function apply(lang) {
+      var rtl = lang === "he";
+      page.setAttribute("data-lang", lang);
+      page.setAttribute("lang", lang);
+      page.setAttribute("dir", rtl ? "rtl" : "ltr");
+      document.documentElement.setAttribute("lang", lang);
+      document.documentElement.setAttribute("dir", rtl ? "rtl" : "ltr");
+      buttons.he.setAttribute("aria-pressed", String(rtl));
+      buttons.en.setAttribute("aria-pressed", String(!rtl));
+      try { localStorage.setItem("mk-lang", lang); } catch (e) {}
+    }
+
+    buttons.he.addEventListener("click", function () { apply("he"); });
+    buttons.en.addEventListener("click", function () { apply("en"); });
+
+    var saved = null;
+    try { saved = localStorage.getItem("mk-lang"); } catch (e) {}
+    apply(saved === "en" ? "en" : "he");
+  })();
+</script>
