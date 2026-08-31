@@ -18,7 +18,7 @@ import re
 import segno
 
 HERE = pathlib.Path(__file__).parent
-CATALOG_URL = "https://shmulz.github.io/MashroomKingdom/"
+CATALOG_URL = "https://shmulz.github.io/MushroomKingdom/"
 
 DESCRIPTIONS = {
     "index": "קטלוג הפטריות של ממלכת הפטריות - פטריות שף טריות בגידול מקומי.",

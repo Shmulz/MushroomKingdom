@@ -80,13 +80,39 @@
     background: var(--ground-soft);
     border: 1px solid var(--hair-strong);
     border-radius: 4px;
-    padding: clamp(1.9rem, 6vw, 2.6rem) clamp(1.4rem, 5vw, 2.2rem) clamp(1.7rem, 5vw, 2.2rem);
+    overflow: hidden;
     text-align: center;
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
+  }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    height: clamp(126px, 36vw, 172px);
+  }
+
+  .card-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* fades the photograph into the card so it reads as one surface,
+     not a picture pasted on top of a panel */
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(33, 30, 25, 0.22) 0%,
+      rgba(33, 30, 25, 0) 30%,
+      var(--ground-soft) 97%);
+  }
+
+  .card-body {
+    position: relative;
+    margin-top: clamp(-60px, -13vw, -46px);
+    padding: 0 clamp(1.4rem, 5vw, 2.2rem) clamp(1.7rem, 5vw, 2.2rem);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
   }
 
   .seal { width: clamp(92px, 24vw, 116px); height: auto; display: block; }
@@ -203,6 +229,11 @@
   </div>
 
   <div class="card">
+    <div class="card-hero">
+      <img src="images/card_hero.jpg" alt="פטריות צדף ורודה טריות / Fresh pink oyster mushrooms">
+    </div>
+
+    <div class="card-body">
     <img class="seal" src="images/logo-cream.png" alt="ממלכת הפטריות / Mushrooms Kingdom">
 
     <h1 class="brand">
@@ -247,7 +278,7 @@
         </svg>
         <span dir="ltr">@mushrooms.kingdomm</span>
       </a>
-      <a class="btn" href="https://shmulz.github.io/MashroomKingdom/">
+      <a class="btn" href="https://shmulz.github.io/MushroomKingdom/">
         <span class="when-he">לקטלוג המלא</span>
         <span class="when-en">View the full catalogue</span>
       </a>
@@ -262,6 +293,7 @@
     </div>
 
     <p class="colophon">MUSHROOMS KINGDOM &middot; 2026</p>
+    </div>
   </div>
 
 </div>
