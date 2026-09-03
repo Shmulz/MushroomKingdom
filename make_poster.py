@@ -15,8 +15,10 @@ import re
 import segno
 
 HERE = pathlib.Path(__file__).parent
-POSTER_URL = "https://www.mushroomkingdom.co.il/catalogue/"
-PRINTED_URL = "mushroomkingdom.co.il/catalogue"
+# Apex, not www, so the code matches the address printed beside it and a
+# scan lands directly instead of taking a redirect hop.
+POSTER_URL = "https://mushroomkingdom.co.il/catalogue/"
+PRINTED_URL = "MushroomKingdom.co.il/catalogue"   # host is case-insensitive; camel case only for legibility
 
 
 def make_qr(url):

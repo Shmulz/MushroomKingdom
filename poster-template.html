@@ -44,7 +44,7 @@
 
   /* ---------- photograph band ---------- */
 
-  .photo { position: relative; width: 100%; height: 70mm; flex: none; }
+  .photo { position: relative; width: 100%; height: 76mm; flex: none; }
 
   .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -61,10 +61,11 @@
   /* ---------- identity ---------- */
 
   .seal {
-    width: 62mm;
+    width: 52mm;
     height: auto;
     display: block;
-    margin-top: -23mm;
+    margin-top: -19mm;
+    flex: none;
     position: relative;
     z-index: 2;
   }
@@ -72,28 +73,28 @@
   .brand {
     font-family: var(--f-display);
     font-weight: 700;
-    font-size: 56pt;
+    font-size: 49pt;
     line-height: 1;
-    margin: 4mm 0 0;
+    margin: 3mm 0 0;
   }
 
   .brand-latin {
     font-family: var(--f-label);
     font-weight: 500;
-    font-size: 17pt;
+    font-size: 15pt;
     letter-spacing: 0.3em;
     text-indent: 0.3em;
     color: var(--ochre);
-    margin: 3.5mm 0 0;
+    margin: 3mm 0 0;
     direction: ltr;
   }
 
   .claim {
     font-family: var(--f-display);
     font-weight: 500;
-    font-size: 28pt;
+    font-size: 25pt;
     color: var(--mycelium);
-    margin: 6mm 0 0;
+    margin: 4mm 0 0;
   }
 
   /* ---------- the code ---------- */
@@ -101,41 +102,50 @@
   .qr-panel {
     background: var(--mycelium);
     border-radius: 2mm;
-    padding: 6mm;
-    margin-top: 7mm;
+    padding: 3.4mm;
+    margin-top: 4mm;
     line-height: 0;
+    flex: none;
   }
 
-  .qr-panel svg { width: 50mm; height: 50mm; display: block; }
+  .qr-panel svg { width: 62mm; height: 62mm; display: block; }
 
   .qr-caption {
     font-family: var(--f-display);
     font-weight: 500;
-    font-size: 22pt;
+    font-size: 20pt;
     color: var(--mycelium);
-    margin: 4.5mm 0 0;
+    margin: 4mm 0 0;
   }
 
   .qr-url {
     font-family: var(--f-label);
-    font-size: 13pt;
+    font-size: 12.5pt;
     letter-spacing: 0.06em;
     color: var(--ochre);
-    margin: 2.5mm 0 0;
+    margin: 2mm 0 0;
     direction: ltr;
   }
 
   /* ---------- contact ---------- */
 
+  .divider {
+    width: 66mm;
+    height: 0.6mm;
+    background: rgba(242, 237, 227, 0.42);
+    border: 0;
+    margin: 6mm 0;
+    flex: none;
+  }
+
   .contact {
-    margin-top: auto;
     width: 100%;
-    padding: 6mm 0 9mm;
-    border-top: 1px solid rgba(242, 237, 227, 0.16);
+    padding: 0 0 8mm;
+    flex: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4mm;
+    gap: 3.4mm;
   }
 
   .phone {
@@ -144,13 +154,13 @@
     gap: 4mm;
     font-family: var(--f-body);
     font-weight: 700;
-    font-size: 34pt;
+    font-size: 29pt;
     line-height: 1;
     color: var(--mycelium);
     direction: ltr;
   }
 
-  .phone svg { width: 11mm; height: 11mm; flex: none; color: var(--ochre); }
+  .phone svg { width: 9.4mm; height: 9.4mm; flex: none; color: var(--ochre); }
 
   .social {
     display: inline-flex;
@@ -196,6 +206,8 @@
   <div class="qr-panel">{{QR}}</div>
   <p class="qr-caption">סרקו לצפייה בקטלוג המלא</p>
   <p class="qr-url">{{URL}}</p>
+
+  <hr class="divider">
 
   <div class="contact">
     <span class="phone">
