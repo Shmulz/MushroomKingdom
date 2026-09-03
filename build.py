@@ -88,6 +88,11 @@ def wrap(body, page, alternates=(), lang="he"):
         '<!doctype html>\n<html lang="%s" dir="%s">\n<head>\n' % (lang, page["dir"])
         + '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<link rel="icon" href="/favicon.ico" sizes="any">\n'
+        '<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">\n'
+        '<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">\n'
+        '<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">\n'
+        '<meta name="theme-color" content="#171512">\n'
         + head_meta(page, alternates)
         + "</head>\n<body>\n" + body + "\n</body>\n</html>\n"
     )
