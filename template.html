@@ -381,20 +381,40 @@
   .ig {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     font-family: var(--f-label);
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    color: var(--tan);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: var(--mycelium);
     text-decoration: none;
-    border-bottom: 1px solid var(--hair);
-    padding-bottom: 3px;
     direction: ltr;
   }
 
-  .ig svg { width: 17px; height: 17px; flex: none; }
+  /* Solid ochre tile, the same treatment as the poster, so the mark is
+     recognisable at a glance. The underline belongs to the handle only;
+     running it under the icon boxed the tile in for no reason. */
+  .ig-mark {
+    width: 30px;
+    height: 30px;
+    flex: none;
+    background: var(--ochre);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease;
+  }
 
-  .ig:hover { color: var(--mycelium); border-color: var(--hair-strong); }
+  .ig-mark svg { width: 20px; height: 20px; color: var(--ground); }
+
+  .ig-handle {
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 3px;
+  }
+
+  .ig:hover .ig-handle, .ig:focus-visible .ig-handle { border-color: var(--hair-strong); }
+
+  .ig:hover .ig-mark { background: var(--mycelium); }
 
   .colophon {
     font-family: var(--f-label);
@@ -631,12 +651,14 @@
       </a>
     </div>
     <a class="ig" href="https://instagram.com/mushrooms.kingdomm" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2.5" y="2.5" width="19" height="19" rx="5.4"></rect>
-        <circle cx="12" cy="12" r="4.3"></circle>
-        <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"></circle>
-      </svg>
-      <span>@mushrooms.kingdomm</span>
+      <span class="ig-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4"></rect>
+          <circle cx="12" cy="12" r="4.4"></circle>
+          <circle cx="17.7" cy="6.3" r="1.3" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </span>
+      <span class="ig-handle">@mushrooms.kingdomm</span>
     </a>
     <p class="colophon">MUSHROOMS KINGDOM &middot; 2026</p>
   </footer>
