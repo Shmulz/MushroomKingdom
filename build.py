@@ -1,18 +1,20 @@
-"""Builds the catalogue and the digital business card from their templates.
+"""Builds the whole site from the templates.
 
-For each page it writes three files:
-  <name>.html               - the hosted page, loads images/ from disk
-  <name>-single-file.html   - self contained, images embedded (email / USB)
-  <name>-artifact.html      - the same embedded content with no
-                              <html>/<head>/<body> wrapper, because the Claude
-                              Artifact host supplies those
+Site layout:
+  /                  landing page, holding the root for the real site later
+  /catalogue/        the catalogue in Hebrew
+  /catalogue/en/     the catalogue in English
+  /vcard/            digital business card, parked; nothing links to it yet
 
-Every URL on the site derives from SITE_URL below: the QR code, the canonical
-links and the absolute og:image address. When the domain changes, change it
-here and rerun. Nothing else hardcodes a URL.
+The two catalogue languages are separate pages rather than one page with a
+toggle, so a link can be shared in either language and each URL declares one
+language to search engines. Both are generated from the same template: the
+build strips the other language's spans and turns the toggle into links.
 
-The link-preview image itself is built separately by make_og.py, which only
-needs rerunning when the photograph or the branding changes.
+Every URL derives from SITE_URL. Change it here and rerun; the QR code on the
+poster comes from make_poster.py, which has its own copy for the same reason.
+
+Run `py build.py` after editing any template. Never hand-edit the output.
 """
 
 import base64
@@ -20,50 +22,55 @@ import mimetypes
 import pathlib
 import re
 
-import segno
-
 HERE = pathlib.Path(__file__).parent
+SITE_URL = "https://mushroomkingdom.co.il"
 
-SITE_URL = "https://shmulz.github.io/MushroomKingdom"
-CATALOG_URL = SITE_URL + "/"          # what the QR code on the card encodes
-
-PAGES = {
-    "index": {
-        "source": "template.html",
-        "url": SITE_URL + "/",
+CATALOGUE = {
+    "he": {
+        "out": "catalogue/index.html",
+        "path": "/catalogue/",
+        "dir": "rtl",
         "title": "ממלכת הפטריות | פטריות שף בגידול אורגני",
         "description": "קטלוג הפטריות של ממלכת הפטריות. פטריות שף בגידול אורגני, ישירות מהמגדל.",
     },
-    "card": {
-        "source": "card-template.html",
-        "url": SITE_URL + "/card.html",
-        "title": "ממלכת הפטריות | פרטי קשר והזמנות",
-        "description": "כרטיס הביקור הדיגיטלי של ממלכת הפטריות. פרטי קשר, הזמנות וקישור לקטלוג.",
+    "en": {
+        "out": "catalogue/en/index.html",
+        "path": "/catalogue/en/",
+        "dir": "ltr",
+        "title": "Mushrooms Kingdom | Gourmet mushrooms, organically grown",
+        "description": "The Mushrooms Kingdom catalogue. Gourmet mushrooms, organically grown, direct from the grower.",
     },
 }
 
+LANDING = {
+    "out": "index.html",
+    "path": "/",
+    "dir": "rtl",
+    "title": "ממלכת הפטריות",
+    "description": "ממלכת הפטריות. פטריות שף בגידול אורגני. האתר המלא יעלה בקרוב.",
+}
 
-def make_qr():
-    qr = segno.make(CATALOG_URL, error="q")
-    svg = qr.svg_inline(dark="#171512", light=None, border=2)
-    size = qr.symbol_size(border=2)[0]
-    svg = svg.replace("<svg ", '<svg viewBox="0 0 %d %d" ' % (size, size), 1)
-    return re.sub(r'(width|height)="[^"]*"', "", svg, count=2)
+VCARD = {
+    "out": "vcard/index.html",
+    "path": "/vcard/",
+    "dir": "rtl",
+    "title": "ממלכת הפטריות | פרטי קשר והזמנות",
+    "description": "כרטיס הביקור הדיגיטלי של ממלכת הפטריות. פרטי קשר, הזמנות וקישור לקטלוג.",
+}
 
 
-def head_meta(page):
-    """Description, canonical, and the Open Graph tags that make a shared link
+def head_meta(page, alternates=()):
+    """Description, canonical and the Open Graph tags that make a shared link
     render as a card with a photograph instead of a bare URL. WhatsApp,
-    Facebook and Telegram all read these. og:image must be an absolute URL."""
-    return (
+    Facebook and Telegram all read these; og:image must be absolute."""
+    tags = (
         '<meta name="description" content="{description}">\n'
-        '<link rel="canonical" href="{url}">\n'
+        '<link rel="canonical" href="{site}{path}">\n'
         '<meta property="og:type" content="website">\n'
         '<meta property="og:site_name" content="ממלכת הפטריות">\n'
-        '<meta property="og:locale" content="he_IL">\n'
         '<meta property="og:title" content="{title}">\n'
         '<meta property="og:description" content="{description}">\n'
-        '<meta property="og:url" content="{url}">\n'
+        '<meta property="og:url" content="{site}{path}">\n'
         '<meta property="og:image" content="{site}/images/og.jpg">\n'
         '<meta property="og:image:type" content="image/jpeg">\n'
         '<meta property="og:image:width" content="1200">\n'
@@ -71,15 +78,38 @@ def head_meta(page):
         '<meta property="og:image:alt" content="פטריות צדף ורודה טריות עם הסמל של ממלכת הפטריות">\n'
         '<meta name="twitter:card" content="summary_large_image">\n'
     ).format(site=SITE_URL, **page)
+    for lang, path in alternates:
+        tags += '<link rel="alternate" hreflang="%s" href="%s%s">\n' % (lang, SITE_URL, path)
+    return tags
 
 
-def wrap(body, page):
+def wrap(body, page, alternates=(), lang="he"):
     return (
-        '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n'
-        '<meta charset="utf-8">\n'
+        '<!doctype html>\n<html lang="%s" dir="%s">\n<head>\n' % (lang, page["dir"])
+        + '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-        + head_meta(page)
+        + head_meta(page, alternates)
         + "</head>\n<body>\n" + body + "\n</body>\n</html>\n"
+    )
+
+
+def set_title(html, title):
+    return re.sub(r"<title>.*?</title>", "<title>%s</title>" % title, html, count=1, flags=re.S)
+
+
+def strip_lang(html, drop):
+    """Remove the spans belonging to the language this page is not."""
+    return re.sub(r'\s*<span class="when-%s[^"]*">.*?</span>' % drop, "", html, flags=re.S)
+
+
+def language_links(current):
+    other = "en" if current == "he" else "he"
+    def cell(lang, label):
+        mark = ' aria-current="page"' if lang == current else ""
+        return '    <a href="%s"%s>%s</a>' % (CATALOGUE[lang]["path"], mark, label)
+    return (
+        '  <div class="langswitch" role="group" aria-label="Language / שפה">\n'
+        + cell("he", "HEB") + "\n" + cell("en", "EN") + "\n  </div>"
     )
 
 
@@ -87,21 +117,53 @@ def inline_images(html):
     def repl(match):
         path = HERE / match.group(1)
         mime = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
-        data = base64.b64encode(path.read_bytes()).decode("ascii")
-        return 'src="data:%s;base64,%s"' % (mime, data)
+        return 'src="data:%s;base64,%s"' % (mime, base64.b64encode(path.read_bytes()).decode("ascii"))
 
-    return re.sub(r'src="(images/[^"]+)"', repl, html)
+    return re.sub(r'src="/(images/[^"]+)"', repl, html)
 
 
-qr_svg = make_qr()
-(HERE / "images" / "qr.svg").write_text(qr_svg, encoding="utf-8")
+def write(rel, text):
+    out = HERE / rel
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding="utf-8")
+    return out
 
-for name, page in PAGES.items():
-    html = (HERE / page["source"]).read_text(encoding="utf-8").replace("{{QR}}", qr_svg)
-    embedded = inline_images(html)
-    (HERE / ("%s.html" % name)).write_text(wrap(html, page), encoding="utf-8")
-    (HERE / ("%s-single-file.html" % name)).write_text(wrap(embedded, page), encoding="utf-8")
-    (HERE / ("%s-artifact.html" % name)).write_text(embedded, encoding="utf-8")
 
-for f in sorted(HERE.glob("*.html")):
-    print(f.name, f.stat().st_size // 1024, "KB")
+# ---------------------------------------------------------------- landing
+
+landing = (HERE / "landing-template.html").read_text(encoding="utf-8")
+write(LANDING["out"], wrap(set_title(landing, LANDING["title"]), LANDING))
+
+# -------------------------------------------------------------- catalogue
+
+template = (HERE / "template.html").read_text(encoding="utf-8")
+alternates = [("he", CATALOGUE["he"]["path"]), ("en", CATALOGUE["en"]["path"]),
+              ("x-default", CATALOGUE["he"]["path"])]
+
+for lang, page in CATALOGUE.items():
+    html = strip_lang(template, "en" if lang == "he" else "he")
+    html = set_title(html, page["title"])
+    # one language per page, so the runtime toggle becomes plain navigation
+    html = re.sub(r'  <div class="langswitch".*?</div>', language_links(lang), html, count=1, flags=re.S)
+    html = re.sub(r"<script>.*?</script>\s*$", "", html, flags=re.S).rstrip() + "\n"
+    html = html.replace(
+        '<div class="page" id="page" data-lang="he" dir="rtl" lang="he">',
+        '<div class="page" id="page" data-lang="%s" dir="%s" lang="%s">' % (lang, page["dir"], lang),
+    )
+    write(page["out"], wrap(html, page, alternates, lang))
+    if lang == "he":
+        write("index-artifact.html", inline_images(html))
+
+# ------------------------------------------------------------------ vcard
+# Keeps its runtime toggle: it is a utility page nobody searches for, and a
+# reload to translate a phone number is not worth it.
+
+card = (HERE / "card-template.html").read_text(encoding="utf-8")
+card = set_title(card, VCARD["title"]).replace('href="michael.vcf"', 'href="/michael.vcf"')
+write(VCARD["out"], wrap(card, VCARD))
+write("card-artifact.html", inline_images(card))
+
+for f in sorted(HERE.rglob("*.html")):
+    if "images" in f.parts:
+        continue
+    print(str(f.relative_to(HERE)).replace("\\", "/"), f.stat().st_size // 1024, "KB")
