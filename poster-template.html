@@ -1,0 +1,198 @@
+<title>ממלכת הפטריות - כרזה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  @page { size: A4 portrait; margin: 0; }
+
+  :root {
+    --ground:      #171512;
+    --mycelium:    #F2EDE3;
+    --tan:         #A79E8E;
+    --ochre:       #C8973F;
+    --hair-strong: rgba(242, 237, 227, 0.28);
+
+    --f-display: "Frank Ruhl Libre", "Times New Roman", serif;
+    --f-body:    "Assistant", "Segoe UI", Arial, sans-serif;
+    --f-label:   "IBM Plex Mono", "Consolas", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; background: #444; }
+
+  .poster {
+    width: 210mm;
+    height: 297mm;
+    background: var(--ground);
+    color: var(--mycelium);
+    font-family: var(--f-body);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* exact-colour printing, otherwise browsers drop dark backgrounds */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- photograph band ---------- */
+
+  .photo {
+    position: relative;
+    width: 100%;
+    height: 104mm;
+    flex: none;
+  }
+
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(23, 21, 18, 0.10) 0%,
+      rgba(23, 21, 18, 0) 42%,
+      var(--ground) 99%);
+  }
+
+  /* ---------- identity ---------- */
+
+  .seal {
+    width: 44mm;
+    height: auto;
+    display: block;
+    margin-top: -17mm;
+    position: relative;
+    z-index: 2;
+  }
+
+  .brand {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 46pt;
+    line-height: 1.05;
+    margin: 5mm 0 0;
+  }
+
+  .brand-latin {
+    font-family: var(--f-label);
+    font-weight: 500;
+    font-size: 10pt;
+    letter-spacing: 0.4em;
+    text-indent: 0.4em;
+    color: var(--ochre);
+    margin: 2.5mm 0 0;
+    direction: ltr;
+  }
+
+  .rule {
+    width: 34mm;
+    height: 1px;
+    background: var(--hair-strong);
+    border: 0;
+    margin: 7mm 0 0;
+  }
+
+  .claim {
+    font-family: var(--f-display);
+    font-size: 19pt;
+    color: var(--mycelium);
+    margin: 6mm 0 0;
+  }
+
+  /* ---------- the code ---------- */
+
+  .qr-panel {
+    background: var(--mycelium);
+    border-radius: 2mm;
+    padding: 7mm;
+    margin-top: 9mm;
+    line-height: 0;
+  }
+
+  .qr-panel svg { width: 58mm; height: 58mm; display: block; }
+
+  .qr-caption {
+    font-family: var(--f-display);
+    font-size: 15pt;
+    color: var(--mycelium);
+    margin: 5mm 0 0;
+  }
+
+  .qr-url {
+    font-family: var(--f-label);
+    font-size: 8.5pt;
+    letter-spacing: 0.12em;
+    color: var(--tan);
+    margin: 2mm 0 0;
+    direction: ltr;
+  }
+
+  /* ---------- contact strip ---------- */
+
+  .contact {
+    margin-top: auto;
+    width: 100%;
+    padding: 7mm 0 11mm;
+    border-top: 1px solid rgba(242, 237, 227, 0.14);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12mm;
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.6mm;
+    font-size: 13pt;
+    font-weight: 600;
+    color: var(--mycelium);
+    direction: ltr;
+  }
+
+  .item svg { width: 5.4mm; height: 5.4mm; flex: none; color: var(--ochre); }
+</style>
+
+<div class="poster">
+
+  <div class="photo">
+    <img src="images/card_hero.jpg" alt="">
+  </div>
+
+  <img class="seal" src="images/logo-cream.png" alt="">
+
+  <h1 class="brand">ממלכת הפטריות</h1>
+  <p class="brand-latin">MUSHROOMS KINGDOM</p>
+
+  <hr class="rule">
+
+  <p class="claim">פטריות שף בגידול אורגני</p>
+
+  <div class="qr-panel">{{QR}}</div>
+  <p class="qr-caption">סרקו לצפייה בקטלוג המלא</p>
+  <p class="qr-url">{{URL}}</p>
+
+  <div class="contact">
+    <span class="item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.2 3.5h3l1.5 3.8-1.9 1.4a12.5 12.5 0 0 0 5.5 5.5l1.4-1.9 3.8 1.5v3a1.7 1.7 0 0 1-1.9 1.7A16.8 16.8 0 0 1 4.5 5.4 1.7 1.7 0 0 1 6.2 3.5Z"></path>
+      </svg>
+      052-705-0501
+    </span>
+    <span class="item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="2.5" width="19" height="19" rx="5.4"></rect>
+        <circle cx="12" cy="12" r="4.3"></circle>
+        <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"></circle>
+      </svg>
+      @mushrooms.kingdomm
+    </span>
+  </div>
+
+</div>
