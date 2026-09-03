@@ -379,6 +379,12 @@
     margin-top: 0.35rem;
   }
 
+  /* The Instagram mark is forced LTR, so its ochre tile sits on the left in
+     both languages. Reversing the row in English keeps the orange WhatsApp
+     button on the right, so the two accents balance the same way they do in
+     Hebrew instead of stacking down one side. */
+  .page[data-lang="en"] .actions { flex-direction: row-reverse; }
+
   .btn {
     display: inline-flex;
     align-items: center;
