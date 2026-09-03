@@ -56,7 +56,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.15rem;
+    gap: clamp(1.6rem, 4.5vw, 2.4rem);
     text-align: center;
     padding: clamp(2.5rem, 8vw, 4.5rem) 1.5rem;
     overflow: hidden;
@@ -87,6 +87,26 @@
 
   .landing > * { position: relative; z-index: 2; }
 
+  /* Two groups, not six floating lines: identity, then the message.
+     The spacing does the separating, so no panel or box is needed. */
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Over a photograph a 1px hairline at 28% simply disappears, so this one
+     is heavier than the equivalent rules on the flat-ground pages. */
+  .rule {
+    width: clamp(52px, 15vw, 92px);
+    height: 2px;
+    background: rgba(242, 237, 227, 0.5);
+    border: 0;
+    border-radius: 1px;
+    margin: 0;
+  }
+
   .seal {
     width: clamp(150px, 34vw, 250px);
     height: auto;
@@ -99,7 +119,7 @@
     font-weight: 700;
     font-size: clamp(2.6rem, 9.5vw, 5rem);
     line-height: 1.04;
-    margin: 0.2rem 0 0;
+    margin: 0.3rem 0 0;
     text-wrap: balance;
   }
 
@@ -109,42 +129,30 @@
     letter-spacing: 0.42em;
     text-indent: 0.42em;
     color: var(--ochre);
-    margin: -0.35rem 0 0;
+    margin: -0.3rem 0 0;
     direction: ltr;
   }
 
   .claim {
     font-size: clamp(1rem, 3.3vw, 1.15rem);
     color: var(--tan);
-    margin: -0.35rem 0 0;
+    margin: 0.15rem 0 0;
     text-wrap: balance;
   }
 
   .soon {
     font-family: var(--f-display);
-    font-size: clamp(1.3rem, 4.6vw, 1.85rem);
+    font-size: clamp(1.6rem, 5.6vw, 2.3rem);
     color: var(--mycelium);
-    margin: 1rem 0 0;
+    margin: 0;
     max-width: 22ch;
     text-wrap: balance;
   }
 
   .soon-sub {
     font-size: clamp(1.12rem, 3.9vw, 1.35rem);
-    color: var(--mycelium);
-    opacity: 0.86;
-    margin: -0.4rem 0 0;
-  }
-
-  .soon-en {
-    font-family: var(--f-label);
-    font-size: 0.7rem;
-    letter-spacing: 0.24em;
-    text-indent: 0.24em;
     color: var(--tan);
-    opacity: 0.8;
-    margin: 0.1rem 0 0;
-    direction: ltr;
+    margin: 0;
   }
 
   .cta {
@@ -156,7 +164,7 @@
     font-size: clamp(1rem, 3.4vw, 1.12rem);
     text-decoration: none;
     padding: 0.95rem 2.1rem;
-    margin-top: 0.85rem;
+    margin-top: 0;
     border-radius: 999px;
     background: var(--ochre);
     border: 1px solid var(--ochre);
@@ -178,15 +186,19 @@
 
 <div class="landing" dir="rtl" lang="he">
 
-  <img class="seal" src="/images/logo-cream.png" alt="ממלכת הפטריות / Mushrooms Kingdom">
+  <div class="group">
+    <img class="seal" src="/images/logo-cream.png" alt="ממלכת הפטריות / Mushrooms Kingdom">
+    <h1 class="brand">ממלכת הפטריות</h1>
+    <p class="brand-latin">MUSHROOMS KINGDOM</p>
+    <p class="claim">פטריות שף בגידול אורגני</p>
+  </div>
 
-  <h1 class="brand">ממלכת הפטריות</h1>
-  <p class="brand-latin">MUSHROOMS KINGDOM</p>
-  <p class="claim">פטריות שף בגידול אורגני</p>
+  <hr class="rule">
 
-  <p class="soon">משהו טוב גדל כאן</p>
-  <p class="soon-sub">האתר המלא יעלה בקרוב</p>
-  <p class="soon-en">FULL SITE COMING SOON</p>
+  <div class="group">
+    <p class="soon">משהו טוב גדל כאן</p>
+    <p class="soon-sub">האתר המלא יעלה בקרוב</p>
+  </div>
 
   <a class="cta" href="/catalogue/">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
