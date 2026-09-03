@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
 HERE = pathlib.Path(__file__).parent
 W, H = 1200, 630
-PHOTO_H = 286          # where the photograph gives way to solid ground
+PHOTO_H = 250          # where the photograph gives way to solid ground
 FADE = 42              # soft join, so the edge is not a hard line
 
 SOURCE_PHOTO = HERE / "images" / "card_hero.jpg"
@@ -64,11 +64,11 @@ canvas.paste(
 draw = ImageDraw.Draw(canvas)
 
 logo = Image.open(LOGO).convert("RGBA")
-logo.thumbnail((172, 172), Image.LANCZOS)
+logo.thumbnail((232, 232), Image.LANCZOS)
 # sit the seal mostly on the solid ground, only its top edge on the photo
 canvas.paste(logo, ((W - logo.width) // 2, PHOTO_H - logo.height // 3), logo)
 
-f_brand = ImageFont.truetype(HEB_BOLD, 100)
+f_brand = ImageFont.truetype(HEB_BOLD, 92)
 f_latin = ImageFont.truetype(LATIN, 25)
 
 
@@ -84,8 +84,8 @@ def centred(text, font, y, fill, spacing=0):
         draw.text(((W - draw.textlength(text, font=font)) / 2, y), text, font=font, fill=fill)
 
 
-centred(heb("ממלכת הפטריות"), f_brand, 406, CREAM)
-centred("MUSHROOMS KINGDOM", f_latin, 534, OCHRE, spacing=7)
+centred(heb("ממלכת הפטריות"), f_brand, 424, CREAM)
+centred("MUSHROOMS KINGDOM", f_latin, 550, OCHRE, spacing=7)
 
 canvas.save(OUT, quality=88, optimize=True, progressive=True)
 print("og.jpg", OUT.stat().st_size // 1024, "KB", canvas.size)
