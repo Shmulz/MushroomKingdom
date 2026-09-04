@@ -85,7 +85,7 @@ def centred(text, font, y, fill, spacing=0):
 
 
 centred(heb("ממלכת הפטריות"), f_brand, 424, CREAM)
-centred("MUSHROOMS KINGDOM", f_latin, 550, OCHRE, spacing=7)
+centred("MUSHROOM KINGDOM", f_latin, 550, OCHRE, spacing=7)
 
 canvas.save(OUT, quality=88, optimize=True, progressive=True)
 print("og.jpg", OUT.stat().st_size // 1024, "KB", canvas.size)
