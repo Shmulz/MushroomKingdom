@@ -84,7 +84,6 @@
     text-shadow: 0 0.6mm 2.6mm rgba(23, 21, 18, 0.75);
   }
 
-  .seal { filter: drop-shadow(0 0.8mm 2.4mm rgba(23, 21, 18, 0.85)); }
 
   .group {
     display: flex;
@@ -93,34 +92,18 @@
     gap: 3mm;
   }
 
-  /* The seal is fine cream line art. Over a bright photograph it loses to the
-     type, which now carries a shadow. A dark halo behind it gives the lines
-     something to sit on without touching the logo itself. */
-  .seal-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-  }
-
-  .seal-wrap::before {
-    content: "";
-    position: absolute;
-    width: 106mm;
-    height: 106mm;
-    border-radius: 50%;
-    background: radial-gradient(circle,
-      rgba(23, 21, 18, 0.82) 0%,
-      rgba(23, 21, 18, 0.62) 42%,
-      rgba(23, 21, 18, 0) 70%);
-  }
-
+  /* logo-cream.png is line art on transparency, so drop-shadow follows the
+     alpha channel and shadows every stroke individually rather than casting
+     one disc behind the whole seal. Two passes: a tight dark halo hugging each
+     line, then a softer one for depth. */
   .seal {
     width: 58mm;
     height: auto;
     display: block;
-    position: relative;
+    flex: none;
+    filter:
+      drop-shadow(0 0 0.7mm rgba(23, 21, 18, 0.95))
+      drop-shadow(0 0.5mm 1.6mm rgba(23, 21, 18, 0.7));
   }
 
   .brand {
@@ -227,7 +210,7 @@
 <div class="poster">
 
   <div class="group">
-    <span class="seal-wrap"><img class="seal" src="/images/logo-cream.png" alt=""></span>
+    <img class="seal" src="/images/logo-cream.png" alt="">
     <h1 class="brand">ממלכת הפטריות</h1>
     <p class="brand-latin">MUSHROOMS KINGDOM</p>
     <p class="claim">פטריות שף בגידול אורגני</p>
