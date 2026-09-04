@@ -67,7 +67,9 @@ VCARD = {
 
 ORGANISATION = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    # LocalBusiness alongside Organization: with a real address this is what
+    # feeds local results, and Organization alone does not.
+    "@type": ["Organization", "LocalBusiness"],
     "name": "ממלכת הפטריות",
     "alternateName": "Mushrooms Kingdom",
     "description": "חוות פטריות שף וגורמה בגידול אורגני, בצפון הארץ.",
@@ -78,9 +80,17 @@ ORGANISATION = {
     "telephone": "+972-52-705-0501",
     "sameAs": ["https://instagram.com/mushrooms.kingdomm"],
     "areaServed": {"@type": "Country", "name": "Israel"},
-    # No street address on purpose: the location was deliberately kept to a
-    # region on the page, and schema markup is public, not a private signal.
-    "address": {"@type": "PostalAddress", "addressCountry": "IL", "addressRegion": "צפון"},
+    # The full address, matching what the business already publishes on
+    # Facebook. Google cross-references name, address and phone across the
+    # web, so an address that differs from the Facebook listing would be a
+    # weaker signal than either one alone.
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "התורן 22",
+        "addressLocality": "מגדים",
+        "addressRegion": "צפון",
+        "addressCountry": "IL",
+    },
     "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",

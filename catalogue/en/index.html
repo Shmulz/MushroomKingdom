@@ -24,7 +24,7 @@
 <link rel="alternate" hreflang="he" href="https://mushroomkingdom.co.il/catalogue/">
 <link rel="alternate" hreflang="en" href="https://mushroomkingdom.co.il/catalogue/en/">
 <link rel="alternate" hreflang="x-default" href="https://mushroomkingdom.co.il/catalogue/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ממלכת הפטריות","alternateName":"Mushrooms Kingdom","description":"חוות פטריות שף וגורמה בגידול אורגני, בצפון הארץ.","url":"https://mushroomkingdom.co.il/","logo":"https://mushroomkingdom.co.il/images/favicon-512.png","image":"https://mushroomkingdom.co.il/images/og.jpg","foundingDate":"2022","telephone":"+972-52-705-0501","sameAs":["https://instagram.com/mushrooms.kingdomm"],"areaServed":{"@type":"Country","name":"Israel"},"address":{"@type":"PostalAddress","addressCountry":"IL","addressRegion":"צפון"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","telephone":"+972-52-705-0501","availableLanguage":["he","en"]}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"name":"ממלכת הפטריות","alternateName":"Mushrooms Kingdom","description":"חוות פטריות שף וגורמה בגידול אורגני, בצפון הארץ.","url":"https://mushroomkingdom.co.il/","logo":"https://mushroomkingdom.co.il/images/favicon-512.png","image":"https://mushroomkingdom.co.il/images/og.jpg","foundingDate":"2022","telephone":"+972-52-705-0501","sameAs":["https://instagram.com/mushrooms.kingdomm"],"areaServed":{"@type":"Country","name":"Israel"},"address":{"@type":"PostalAddress","streetAddress":"התורן 22","addressLocality":"מגדים","addressRegion":"צפון","addressCountry":"IL"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","telephone":"+972-52-705-0501","availableLanguage":["he","en"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Mushrooms Kingdom | Gourmet & Chef Mushrooms, Organically Grown","numberOfItems":6,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Lion’s Mane","alternateName":"פטריית רעמת האריה","description":"“Nature’s steak” - a rich, meaty texture. Regarded as a superfood that supports brain health and improves focus and concentration.","image":"https://mushroomkingdom.co.il/images/lions_mane.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Hericium erinaceus"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}},{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Pink Oyster","alternateName":"פטריית צדף ורודה","description":"A strikingly beautiful mushroom in a vivid colour, rich in iron, amino acids and antioxidants. Works beautifully in baked dishes, pasta and stir-fries.","image":"https://mushroomkingdom.co.il/images/pink_oyster.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Pleurotus djamor"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}},{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Blue Oyster","alternateName":"פטריית צדף כחולה","description":"A succulent mushroom with a delicate earthy flavour that works beautifully roasted or seared. A natural source of protein and dietary fibre, packed with antioxidants that support the immune system and help reduce inflammation.","image":"https://mushroomkingdom.co.il/images/blue_oyster.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Pleurotus ostreatus var. columbinus"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}},{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Golden Oyster","alternateName":"פטריית צדף צהובה","description":"An exotic mushroom with a delicate nutty aroma, rich in B vitamins and an excellent source of dietary fibre and protein. Perfect for stir-fries and quick dishes.","image":"https://mushroomkingdom.co.il/images/yellow_oyster.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Pleurotus citrinopileatus"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}},{"@type":"ListItem","position":5,"item":{"@type":"Product","name":"White Oyster","alternateName":"פטריית צדף לבנה","description":"A delicate, elegant mushroom with a slightly sweet flavour that readily absorbs other flavours and works beautifully in soups, sauces and stews. Low in calories and rich in prebiotic fibre that supports digestive health.","image":"https://mushroomkingdom.co.il/images/white_oyster.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Pleurotus ostreatus"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}},{"@type":"ListItem","position":6,"item":{"@type":"Product","name":"Black Pearl Oyster","alternateName":"פטריית פנינה שחורה","description":"A meaty mushroom with a deep, rich earthy aroma. High in protein and dietary fibre.","image":"https://mushroomkingdom.co.il/images/black_pearl.jpg","category":"Gourmet mushrooms","additionalProperty":{"@type":"PropertyValue","name":"Scientific name","value":"Pleurotus ostreatus (Hybrid)"},"brand":{"@type":"Brand","name":"ממלכת הפטריות"}}}]}</script>
 </head>
 <body>
@@ -452,6 +452,17 @@
 
   .ig:hover .ig-mark { background: var(--mycelium); }
 
+  .where {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--tan);
+    margin: 0.1rem 0 0;
+  }
+
+  .where svg { width: 17px; height: 17px; flex: none; color: var(--ochre); }
+
   .colophon {
     font-family: var(--f-label);
     font-size: 0.62rem;
@@ -668,6 +679,13 @@
       </span>
       <span class="ig-handle">@mushrooms.kingdomm</span>
     </a>
+    <p class="where">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 21.3s7-5.6 7-11.1a7 7 0 1 0-14 0c0 5.5 7 11.1 7 11.1Z"></path>
+        <circle cx="12" cy="10.1" r="2.6"></circle>
+      </svg>
+      <span class="when-en">HaToren 22, Megadim, Israel</span>
+    </p>
     <p class="colophon">MUSHROOMS KINGDOM &middot; 2026</p>
   </footer>
 
