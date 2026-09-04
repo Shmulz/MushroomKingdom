@@ -209,8 +209,15 @@
   /* ---- A5: the A4 sheet scaled, not a second layout ---- */
   @page { size: A5 portrait; margin: 0; }
   html, body { width: 148mm; height: 210mm; overflow: hidden; }
-  .sheet { width: 148mm; height: 210mm; overflow: hidden; }
+  .sheet { position: relative; width: 148mm; height: 210mm; overflow: hidden; }
+  /* Absolute placement, because the document is right-to-left: a 210mm block
+     inside a 148mm sheet would otherwise be laid out from the right edge and
+     hang off the left, and the transform would then scale from a point that
+     is already off the page. That cut a third off the earlier A5. */
   .poster {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 210mm;
     height: 297mm;
     transform: scale(0.70476);

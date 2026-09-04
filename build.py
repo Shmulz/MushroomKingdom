@@ -78,7 +78,10 @@ ORGANISATION = {
     "image": SITE_URL + "/images/og.jpg",
     "foundingDate": "2022",
     "telephone": "+972-52-705-0501",
-    "sameAs": ["https://instagram.com/mushrooms.kingdomm"],
+    "sameAs": [
+        "https://instagram.com/mushrooms.kingdomm",
+        "https://www.facebook.com/Mushroomskingdomm/",
+    ],
     "areaServed": {"@type": "Country", "name": "Israel"},
     # The full address, matching what the business already publishes on
     # Facebook. Google cross-references name, address and phone across the
