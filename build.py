@@ -44,7 +44,7 @@ CATALOGUE = {
         "out": "catalogue/en/index.html",
         "path": "/catalogue/en/",
         "dir": "ltr",
-        "title": "Mushrooms Kingdom | Gourmet & Chef Mushrooms, Organically Grown",
+        "title": "Mushroom Kingdom | Gourmet & Chef Mushrooms, Organically Grown",
         "description": "A catalogue of organically grown gourmet mushrooms: lion's mane, pink, blue, golden and white oyster, and black pearl oyster. Direct from the grower in northern Israel.",
     },
 }
@@ -71,7 +71,7 @@ ORGANISATION = {
     # feeds local results, and Organization alone does not.
     "@type": ["Organization", "LocalBusiness"],
     "name": "ממלכת הפטריות",
-    "alternateName": "Mushrooms Kingdom",
+    "alternateName": "Mushroom Kingdom",
     "description": "חוות פטריות שף וגורמה בגידול אורגני, בצפון הארץ.",
     "url": SITE_URL + "/",
     "logo": SITE_URL + "/images/favicon-512.png",

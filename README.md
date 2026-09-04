@@ -1,6 +1,6 @@
-# Mushrooms Kingdom / ממלכת הפטריות
+# Mushroom Kingdom / ממלכת הפטריות
 
-Single-page online catalog and digital business card for Mushrooms Kingdom,
+Single-page online catalog and digital business card for Mushroom Kingdom,
 a grower of chef and exotic mushrooms. Hebrew by default, with an English toggle.
 
 - `index.html` - the catalog (six mushrooms, photos, descriptions, contact)
