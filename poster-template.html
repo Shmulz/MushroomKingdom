@@ -77,7 +77,7 @@
     text-shadow: 0 0.6mm 2.6mm rgba(23, 21, 18, 0.75);
   }
 
-  .seal { filter: drop-shadow(0 1mm 4mm rgba(23, 21, 18, 0.6)); }
+  .seal { filter: drop-shadow(0 0.8mm 2.4mm rgba(23, 21, 18, 0.85)); }
 
   .group {
     display: flex;
@@ -86,7 +86,35 @@
     gap: 3mm;
   }
 
-  .seal { width: 58mm; height: auto; display: block; flex: none; }
+  /* The seal is fine cream line art. Over a bright photograph it loses to the
+     type, which now carries a shadow. A dark halo behind it gives the lines
+     something to sit on without touching the logo itself. */
+  .seal-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .seal-wrap::before {
+    content: "";
+    position: absolute;
+    width: 106mm;
+    height: 106mm;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(23, 21, 18, 0.82) 0%,
+      rgba(23, 21, 18, 0.62) 42%,
+      rgba(23, 21, 18, 0) 70%);
+  }
+
+  .seal {
+    width: 58mm;
+    height: auto;
+    display: block;
+    position: relative;
+  }
 
   .brand {
     font-family: var(--f-display);
@@ -192,7 +220,7 @@
 <div class="poster">
 
   <div class="group">
-    <img class="seal" src="/images/logo-cream.png" alt="">
+    <span class="seal-wrap"><img class="seal" src="/images/logo-cream.png" alt=""></span>
     <h1 class="brand">ממלכת הפטריות</h1>
     <p class="brand-latin">MUSHROOMS KINGDOM</p>
     <p class="claim">פטריות שף בגידול אורגני</p>

@@ -20,6 +20,8 @@ Run `py build.py` after editing any template. Never hand-edit the output.
 import base64
 import mimetypes
 import pathlib
+import datetime
+import json
 import re
 
 HERE = pathlib.Path(__file__).parent
@@ -59,6 +61,43 @@ VCARD = {
 }
 
 
+ORGANISATION = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ממלכת הפטריות",
+    "alternateName": "Mushrooms Kingdom",
+    "description": "חוות פטריות שף בגידול אורגני, בצפון הארץ.",
+    "url": SITE_URL + "/",
+    "logo": SITE_URL + "/images/favicon-512.png",
+    "image": SITE_URL + "/images/og.jpg",
+    "foundingDate": "2022",
+    "telephone": "+972-52-705-0501",
+    "sameAs": ["https://instagram.com/mushrooms.kingdomm"],
+    "areaServed": {"@type": "Country", "name": "Israel"},
+    "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IL",
+        "addressRegion": "צפון",
+    },
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "+972-52-705-0501",
+        "availableLanguage": ["he", "en"],
+    },
+}
+
+
+def structured_data():
+    """One Organization block, on every page. Tells search engines who this is,
+    which is what a brand-name search needs to resolve to the right site.
+    No street address: the location was deliberately kept to a region."""
+    return ('<script type="application/ld+json">'
+            + json.dumps(ORGANISATION, ensure_ascii=False, separators=(",", ":"))
+            + "</script>\n")
+
+
+
 def head_meta(page, alternates=()):
     """Description, canonical and the Open Graph tags that make a shared link
     render as a card with a photograph instead of a bare URL. WhatsApp,
@@ -94,6 +133,7 @@ def wrap(body, page, alternates=(), lang="he"):
         '<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">\n'
         '<meta name="theme-color" content="#171512">\n'
         + head_meta(page, alternates)
+        + structured_data()
         + "</head>\n<body>\n" + body + "\n</body>\n</html>\n"
     )
 

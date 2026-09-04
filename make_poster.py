@@ -33,7 +33,7 @@ body = (HERE / "poster-template.html").read_text(encoding="utf-8")
 body = body.replace("{{QR}}", make_qr(POSTER_URL)).replace("{{URL}}", PRINTED_URL)
 
 (HERE / "poster.html").write_text(
-    '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n</head>\n<body>\n'
+    '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="robots" content="noindex">\n</head>\n<body>\n'
     + body + "\n</body>\n</html>\n",
     encoding="utf-8",
 )
